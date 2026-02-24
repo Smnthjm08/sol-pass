@@ -56,6 +56,25 @@ export async function GET(
         const { id: publicKey } = await params;
         const user = await prisma.user.findUnique({
             where: { publicKey },
+            include: {
+                events: {
+                    orderBy: { date: "asc" },
+                    include: {
+                        _count: { select: { tickets: true } },
+                    },
+                },
+                tickets: {
+                    include: {
+                        event: {
+                            include: {
+                                creator: { select: { username: true, publicKey: true } },
+                                _count: { select: { tickets: true } },
+                            },
+                        },
+                    },
+                    orderBy: { createdAt: "desc" },
+                },
+            },
         });
 
         if (!user) {

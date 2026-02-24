@@ -1,7 +1,7 @@
 "use client"
 
-import React, { useMemo, useState, useEffect } from 'react';
-import { ConnectionProvider, useWallet, WalletProvider } from '@solana/wallet-adapter-react';
+import React, { useMemo } from 'react';
+import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
 import {
@@ -40,11 +40,6 @@ export const SolanaWalletProvider = ({ children }: { children: React.ReactNode }
         // eslint-disable-next-line react-hooks/exhaustive-deps
         [network]
     );
-
-
-    function handleDisconnect() {
-        console.log("Disconnected");
-    }
 
     return (
         <ConnectionProvider endpoint={endpoint}>
