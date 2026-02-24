@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={notoSans.variable} suppressContentEditableWarning suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} h-screen antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}
       >
         <ThemeProvider
           attribute="class"

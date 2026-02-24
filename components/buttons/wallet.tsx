@@ -17,18 +17,14 @@ export default function Wallet() {
     }, []);
 
     async function handleConnect() {
-        console.log("Connected");
-        console.log(publicKey?.toBase58());
-        const data = await axios.post("/api/auth", {
-            publicKey: publicKey?.toBase58()
+        if (!publicKey) return;
+
+        const { data, status } = await axios.post("/api/auth", {
+            publicKey: publicKey.toBase58(),
         });
-        console.log(data);
-        if (data.status === 200) {
-            console.log("User created");
-            if (!data.data?.username) {
-                // router.push("/onboarding");
-            }
-            console.log("User already exists");
+
+        if (status === 200 && !data.username) {
+            router.push("/onboarding");
         }
     }
 
@@ -36,11 +32,12 @@ export default function Wallet() {
         if (connected) {
             handleConnect();
         }
-    }, [connected, publicKey])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [connected, publicKey]);
 
     return (
-        <main>
+        <div>
             {mounted ? <WalletMultiButton /> : <Skeleton className="w-40 h-10" />}
-        </main>
-    )
+        </div>
+    );
 }

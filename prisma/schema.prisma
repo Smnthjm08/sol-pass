@@ -24,6 +24,7 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  tickets   Ticket[]
 
   @@unique([publicKey, username, email])
   @@map("users")
@@ -37,6 +38,14 @@ model Event {
   location    String?
   date        DateTime
   image       String?
+  capacity    Int?
+  price       Decimal?
+  isFree      Boolean  @default(false)
+  isOnline    Boolean  @default(false)
+  isOffline   Boolean  @default(false)
+  // isPublic    Boolean  @default(false)
+  // isPrivate   Boolean  @default(false)
+  // isInviteOnly Boolean  @default(false)
 
   creatorId String
   creator   User   @relation(fields: [creatorId], references: [id])
@@ -44,5 +53,21 @@ model Event {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  tickets Ticket[]
+
   @@map("events")
+}
+
+model Ticket {
+  id        String   @id @default(cuid())
+  eventId   String
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  event Event @relation(fields: [eventId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+
+  @@unique([eventId, userId])
+  @@map("tickets")
 }
