@@ -1,21 +1,19 @@
 "use client"
 
 import { ThemeToggle } from "./theme-toggle";
-import { Button } from "./ui/button";
-import Image from "next/image";
+import Logo from "./logo";
+import Wallet from "./buttons/wallet";
 
 export default function AppBar() {
     return (
-        <nav className="flex justify-between h-14 border-2 border-black px-12 items-center">
-            <div className="rounded-full bg-black flex items-center gap-2">
-                <Image src="./vercel.svg" alt="Logo" width={20} height={20} />
-                Logo
+        <header className="sticky top-0 z-50 bg-secondary/80 backdrop-blur-md border-b border-secondary">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+                <Logo />
+                <div className="flex items-center gap-2">
+                    <ThemeToggle />
+                    <Wallet />
+                </div>
             </div>
-
-            <div className="flex items-center gap-2">
-                <ThemeToggle />
-                <Button className="cursor-pointer">Connect Wallet</Button>
-            </div>
-        </nav>
+        </header>
     );
 }

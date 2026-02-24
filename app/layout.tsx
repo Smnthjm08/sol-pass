@@ -1,8 +1,11 @@
+// "use client";
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Noto_Sans } from "next/font/google";
 import "./globals.css";
 import AppBar from "@/components/appbar";
-import { ThemeProvider } from "@/components/provider/theme-provider";
+import { ThemeProvider } from "@/components/providers/theme-provider";
+import { SolanaWalletProvider } from "@/components/providers/solana-provider";
 
 const notoSans = Noto_Sans({ variable: '--font-sans' });
 
@@ -37,9 +40,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-
-          <AppBar />
-          {children}
+          <SolanaWalletProvider>
+            <AppBar />
+            {children}
+          </SolanaWalletProvider>
         </ThemeProvider>
       </body>
     </html>
