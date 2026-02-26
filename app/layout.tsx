@@ -41,8 +41,12 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <SolanaWalletProvider>
-            <AppBar />
-            {children}
+            <div className="relative flex min-h-screen flex-col">
+              <AppBar />
+              <main className="flex-1">
+                {children}
+              </main>
+            </div>
           </SolanaWalletProvider>
         </ThemeProvider>
       </body>

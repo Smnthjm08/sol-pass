@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import axios, { AxiosError } from "axios";
-import { CalendarDays, MapPin, Users, Globe, Building2, UserCircle, Mail, Wallet, Loader2, Edit2 } from "lucide-react";
+import { CalendarDays, MapPin, Users, Globe, UserCircle, Mail, Wallet, Loader2, Edit2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -89,6 +89,7 @@ export default function MyProfilePage() {
 
     useEffect(() => {
         if (connected && publicKey) {
+
             fetchUser();
         } else if (!connected) {
             setLoading(false);
@@ -163,7 +164,7 @@ export default function MyProfilePage() {
                 <div className="space-y-2">
                     <h1 className="text-2xl font-bold">Complete Your Profile</h1>
                     <p className="text-muted-foreground max-w-sm mx-auto">
-                        You haven't setup a username or profile yet. Complete onboarding to view your dashboard.
+                        You haven&apos;t setup a username or profile yet. Complete onboarding to view your dashboard.
                     </p>
                 </div>
                 <Link href="/onboarding">
@@ -202,7 +203,7 @@ export default function MyProfilePage() {
                     </div>
                     {user?.bio && (
                         <p className="text-muted-foreground max-w-xl leading-relaxed italic">
-                            "{user.bio}"
+                            &quot;{user.bio}&quot;
                         </p>
                     )}
                     <div className="pt-2">
@@ -307,7 +308,7 @@ export default function MyProfilePage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         {user?.tickets.length === 0 ? (
                             <div className="col-span-full py-20 text-center space-y-3 rounded-2xl border-2 border-dashed border-secondary">
-                                <p className="text-muted-foreground">You haven't joined any events yet.</p>
+                                <p className="text-muted-foreground">You haven&apos;t joined any events yet.</p>
                                 <Link href="/explore">
                                     <Button variant="secondary">Go to Explore</Button>
                                 </Link>
@@ -322,7 +323,7 @@ export default function MyProfilePage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         {user?.events.length === 0 ? (
                             <div className="col-span-full py-20 text-center space-y-3 rounded-2xl border-2 border-dashed border-secondary">
-                                <p className="text-muted-foreground">You haven't hosted any events yet.</p>
+                                <p className="text-muted-foreground">You haven&apos;t hosted any events yet.</p>
                                 <Link href="/event/create">
                                     <Button variant="secondary">Create Event</Button>
                                 </Link>
