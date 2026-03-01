@@ -1,8 +1,8 @@
 import { prisma } from "@/lib/prisma";
+export const dynamic = "force-dynamic";
 import Link from "next/link";
-import { CalendarDays, MapPin, Users, Globe, Building2, PlusSquare } from "lucide-react";
+import { CalendarDays, MapPin, Users, Globe, Building2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 
 export default async function ExplorePage() {
     const events = await prisma.event.findMany({
@@ -22,12 +22,6 @@ export default async function ExplorePage() {
                         Discover events and collect your ticket as an NFT
                     </p>
                 </div>
-                <Link href="/event/create">
-                    <Button className="flex items-center gap-2 cursor-pointer">
-                        <PlusSquare className="w-4 h-4" />
-                        Create Event
-                    </Button>
-                </Link>
             </div>
 
             {events.length === 0 ? (

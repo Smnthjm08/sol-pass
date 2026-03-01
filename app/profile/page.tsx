@@ -89,7 +89,6 @@ export default function MyProfilePage() {
 
     useEffect(() => {
         if (connected && publicKey) {
-
             fetchUser();
         } else if (!connected) {
             setLoading(false);

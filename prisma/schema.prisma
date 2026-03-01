@@ -5,7 +5,7 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../generated/prisma"
 }
 
@@ -30,19 +30,30 @@ model User {
   @@map("users")
 }
 
+enum EventCategory {
+  Music
+  Sports
+  Conference
+  Festival
+  Art
+  Food
+  Other
+}
+
 model Event {
-  id          String   @id @default(cuid())
+  id          String        @id @default(cuid())
   name        String
   description String
-  isVirtual   Boolean  @default(false)
+  category    EventCategory @default(Other)
+  isVirtual   Boolean       @default(false)
   location    String?
   date        DateTime
   image       String?
   capacity    Int?
   price       Decimal?
-  isFree      Boolean  @default(false)
-  isOnline    Boolean  @default(false)
-  isOffline   Boolean  @default(false)
+  isFree      Boolean       @default(false)
+  isOnline    Boolean       @default(false)
+  isOffline   Boolean       @default(false)
   // isPublic    Boolean  @default(false)
   // isPrivate   Boolean  @default(false)
   // isInviteOnly Boolean  @default(false)
