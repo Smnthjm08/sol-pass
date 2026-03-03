@@ -46,8 +46,7 @@ export default function OnboardingForm() {
                 bio: bio.trim() || undefined,
             });
 
-            // Clean up and redirect to home
-            router.push("/");
+            router.push("/explore");
         } catch (err) {
             const axiosErr = err as AxiosError<{ error: string }>;
             setError(

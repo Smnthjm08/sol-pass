@@ -23,12 +23,15 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { DatePicker } from "../utils/date-time-picker";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export function CreateEventForm() {
     const [category, setCategory] = useState("");
     const [isOnline, setIsOnline] = useState(false);
     const [isFree, setIsFree] = useState(true);
     const [date, setDate] = useState<Date | undefined>();
+    const router = useRouter();
 
     async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -65,13 +68,24 @@ export function CreateEventForm() {
             comments: formData.get("comments"),
         };
 
-        await fetch("/api/events", {
+        const response = await fetch("/api/events", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
         });
+
+        if (!response.ok) {
+            throw new Error("Failed to create event");
+        }
+
+        const result = await response.json();
+        console.log(result);
+
+        toast.success("Event created successfully");
+        router.push(`/event/${result.id}`);
+
     }
 
     return (

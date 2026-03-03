@@ -10,13 +10,15 @@ import {
     Ticket,
     Globe,
     Building2,
-    ArrowLeft,
-    Share2,
+    ArrowLeft
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { useWalletModal } from "@solana/wallet-adapter-react-ui";
+import { ShareEventDialog } from "@/components/events/share-event-dialog";
 
 interface Event {
     id: string;
@@ -38,6 +40,8 @@ export default function EventPage() {
     const [event, setEvent] = useState<Event | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
+    const { connected } = useWallet();
+    const { setVisible } = useWalletModal();
 
     useEffect(() => {
         axios
@@ -187,18 +191,23 @@ export default function EventPage() {
                             )}
                         </div>
 
-                        <Button className="w-full" size="lg" disabled={isSoldOut}>
+                        <Button
+                            className="w-full cursor-pointer"
+                            size="lg"
+                            disabled={isSoldOut}
+                            onClick={() => {
+                                if (!connected) {
+                                    setVisible(true);
+                                    return;
+                                }
+                                // TODO: Implementation for getting ticket/minting NFT
+                                console.log("Get Ticket clicked");
+                            }}
+                        >
                             {isSoldOut ? "Sold Out" : "Get Ticket"}
                         </Button>
 
-                        <Button
-                            variant="outline"
-                            className="w-full flex items-center gap-2"
-                            size="sm"
-                        >
-                            <Share2 className="w-3.5 h-3.5" />
-                            Share Event
-                        </Button>
+                        <ShareEventDialog eventName={event.name} />
 
                         <p className="text-xs text-center text-muted-foreground">
                             Ticket will be minted to your wallet as an NFT

@@ -6,6 +6,7 @@ import "./globals.css";
 import AppBar from "@/components/appbar";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { SolanaWalletProvider } from "@/components/providers/solana-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 const notoSans = Noto_Sans({ variable: '--font-sans' });
 
@@ -45,6 +46,7 @@ export default function RootLayout({
               <AppBar />
               <main className="flex-1">
                 {children}
+                <Toaster />
               </main>
             </div>
           </SolanaWalletProvider>
